@@ -1,0 +1,20 @@
+{
+  "name": "recipes",
+  "version": "1.0.0",
+  "description": "know about tasty recipes",
+  "main": "index.js",
+  "scripts": {
+    "test": "Error",
+    "dev": "nodemon ./index.js localhost 3030"
+  },
+  "author": "mgn",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^8.1.0",
+    "mongoose": "^6.0.12"
+  }
+}
