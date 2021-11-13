@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "Error",
-    "dev": "nodemon ./index.js localhost 3030"
+    "dev": "nodemon ./index.js localhost 3000"
   },
   "author": "mgn",
   "license": "ISC",
