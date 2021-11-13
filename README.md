@@ -1,6 +1,6 @@
 # recipeAPI2.0
 A simple API for food recipes.<br>
-Another version of my previous API (recipeAPI).
+Another version of my previous API [recipeAPI](https://github.com/mgncodes/recipeAPI)
 
 ## Tech used
 - node.js
