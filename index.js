@@ -1,7 +1,6 @@
 const https = require("https");
 const url = require('url');
 const express = require('express');
-// const mongoClient = require('mongodb').MongoClient;
 
 const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3000;
@@ -68,94 +67,3 @@ server.delete('/delete-recipe/:id', async (request, response) => {
         message: 'recipe Deleted Successfully'
     });
 });
-
-
-
-// const requestListener = function (request, response) {
-//     if(request.method === 'GET') {
-//         return handleGet(request, response);
-//     } else if(request.method === 'POST') {
-//         return handlePost(request, response);
-//     } else if(request.method === 'PUT') {
-//         return handlePut(request, response);
-//     } else if(request.method === 'DELETE') {
-//         return handleDelete(request, response);
-//     }
-// } // get recipes
-// function handleGet(request, response) {
-//     const { pathname } = url.parse(request.url)
-//     if (pathname !== '/recipes') {
-//         return handleError(response, 404)
-//     } response.setHeader('Content-Type', 'application/json;charset=utf-8');
-//     return response.end(JSON.stringify(Recipes.getRecipes()));
-// }
-// function handlePost(request, response) {
-//     const size = parseInt(request.headers['content-length'], 10)
-//     const buffer = Buffer.allocUnsafe(size)
-//     var pos = 0
-//     const { pathname } = url.parse(request.url)
-//     if (pathname !== '/add-recipe') {
-//         return handleError(res, 404)
-//     } 
-//     request 
-//     .on('data', (chunk) => { 
-//         const offset = pos + chunk.length 
-//         if (offset > size) { 
-//             reject(413, 'Too Large', response) 
-//             return 
-//         } chunk.copy(buffer, pos) 
-//         pos = offset 
-//     }) 
-//     .on('end', () => { 
-//         if (pos !== size) { 
-//             reject(400, 'Bad Request', response) 
-//             return 
-//         } const data = JSON.parse(buffer.toString())
-//         Recipes.addRecipe(data);
-//         console.log('User Posted: ', data) 
-//         response.setHeader('Content-Type', 'application/json;charset=utf-8');
-//         response.end('You Posted: ' + JSON.stringify(data))
-//     })
-// }
-// function handlePut(request, response) {
-//     const { pathname, query } = url.parse(request.url)
-//     if (pathname !== '/edit-recipe') {
-//         return handleError(response, 404)
-//     } const { id } = qs.parse(query)
-//     const size = parseInt(request.headers['content-length'], 10)
-//     const buffer = Buffer.allocUnsafe(size)
-//     var pos = 0
-//     request 
-//     .on('data', (chunk) => { 
-//         const offset = pos + chunk.length 
-//         if (offset > size) { 
-//             reject(413, 'Too Large', response) 
-//             return 
-//         } chunk.copy(buffer, pos) 
-//         pos = offset 
-//     }) 
-//     .on('end', () => { 
-//         if (pos !== size) { 
-//             reject(400, 'Bad request', response) 
-//             return 
-//         } const data = JSON.parse(buffer.toString())
-//         const recipeUpdated = Recipes.editRecipe(id, data);
-//         response.setHeader('Content-Type', 'application/json;charset=utf-8');
-//         response.end(`{"recipeUpdated": ${recipeUpdated}}`)
-//     })
-// }
-// function handleDelete(request, response) {
-//     const { pathname, query } = url.parse(request.url)
-//     if (pathname !== '/delete-recipe') {
-//         return handleError(response, 404)
-//     } const { id } = qs.parse(query)
-//     const recipeDeleted = Recipes.deleteRecipe(id);
-//     response.setHeader('Content-Type', 'application/json;charset=utf-8');
-//     response.end(`{"recipeDeleted": ${recipeDeleted}}`)
-// }
-// function handleError (response, code) { 
-//     response.statusCode = code
-//     response.end(`{"error": "${http.STATUS_CODES[code]}"}`) 
-// }
-
-
