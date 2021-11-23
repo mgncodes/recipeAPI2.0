@@ -1,20 +1,22 @@
 {
-  "name": "recipes",
-  "version": "1.0.0",
-  "description": "know about tasty recipes",
-  "main": "index.js",
-  "scripts": {
-    "test": "Error",
-    "dev": "nodemon ./index.js localhost 3000"
-  },
-  "author": "mgn",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "joi": "^8.1.0",
-    "mongoose": "^6.0.12"
-  }
+	"name": "recipeapi",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon ./index.js localhost 5000"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"mongodb": "^4.2.0",
+		"mongoose": "^6.0.13",
+		"nodemon": "^2.0.15"
+	}
 }

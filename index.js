@@ -1,69 +1,26 @@
-const https = require("https");
-const url = require('url');
 const express = require('express');
+const mongodb = require('mongodb');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const path = require('path');
+const jwt = require('jsonwebtoken');
+dotenv.config();
 
-const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 3000;
+//App Config
+const app = express();
+app.use(express.json());
 
-const server = express();
-server.use(express.json());
+// routes
+const authRoute = require('./routes/Auth');
+const recipeRoute = require('./routes/Recipes');
+app.use('/recipeapi/auth', authRoute);
+app.use('/recipeapi/', recipeRoute);
 
-server.listen(port, host, () => {
-    console.log(`Server running on http://${host}:${port}`);
-});
+// conn to DB
+mongoose.connect(process.env.MONGO_URL).then(
+    console.log('Connected to DB')
+).catch((err) => console.log(err));
 
-const recipeDB = require('./recipeDBConn');
-const { addRecipe, getRecipe, editRecipe, deleteRecipe } = require('./recipes');
-const { appendFile } = require("fs");
-const { response } = require("express");
-const { create } = require("domain");
-
-server.get('/recipes', async (request, response) => {
-    const recipes = await getRecipe();
-    if (recipes.error) {
-        response.status(500).json({
-            message: error.message,
-            recipes: recipes.data
-        });
-    } response.status(200).json({
-        message: 'all recipes fetched successfully',
-        recipes: recipes.data
-    });
-});
-server.post('/add-recipe', async (request, response) => {
-    if (!Object.keys(request.body).length) {
-        response.status(400).json({ message: 'Request body empty' })
-    } const { id, recipeName, recipeType, makingTime } = (request.body);
-    const recipe = await addRecipe({ recipeName, recipeType, makingTime });
-    if (recipe.error) {
-        response.status(500).json({ message: recipe.error })
-    } response.status(201).json({ message: 'new recipe added' });
-});
-server.put('/edit-recipe/:id', async (request, response) => {
-    if (!Object.keys(request.body).length) {
-        response.status(400).json({
-            message: 'Request body empty',
-            recipe: null
-        });
-    } const recipe = await editRecipe(request.params.id, request.body);
-    if (recipe.error) {
-        response.status(500).json({
-            message: recipe.error,
-            recipe: recipe.data
-        });
-    } response.status(200).json({
-        message: 'recipe edited successfully',
-        recipe: recipe.data
-    });
-});
-server.delete('/delete-recipe/:id', async (request, response) => {
-    const isDeleted = await deleteRecipe(request.params.id);
-    if (isDeleted.error) {
-        response.status(500).json({
-            message: isDeleted.error,
-        });
-    }
-    response.status(200).json({
-        message: 'recipe Deleted Successfully'
-    });
-});
+//Listener
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Listening on localhost: ${port}`));
